@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>预览 - 判断并改错</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="reader-page">
+  <header class="reader-header">
+    <div class="chapter-logo"><span class="logo-blue">iP</span>ublish数字教材出版平台</div>
+    <div class="reader-user">
+      <span class="help">?</span>
+      <span class="avatar-dot"></span>
+      <span>外研在线</span>
+    </div>
+  </header>
+
+  <div class="preview-toolbar">
+    <div class="radio-cluster">
+      <span>终端:</span>
+      <label><input type="radio" name="device" checked> PC端</label>
+      <label><input type="radio" name="device"> 手机端</label>
+      <label class="disabled"><input type="radio" name="device" disabled> 平板端</label>
+    </div>
+    <div class="toolbar-divider"></div>
+    <div class="radio-cluster">
+      <span>模式:</span>
+      <label><input type="radio" name="mode" value="teacher" checked> 教师模式</label>
+      <label><input type="radio" name="mode" value="student"> 学生模式</label>
+    </div>
+  </div>
+
+  <main class="reader-main">
+    <button class="side-collapse">›</button>
+    <section class="reader-canvas">
+      <div class="reader-card">
+        <div class="reader-card-head">
+          <div>
+            <span class="small-pill">自动判题</span>
+            <span class="small-pill">计分</span>
+          </div>
+          <button class="submit-btn" id="submitBtn">⇧ 提交</button>
+        </div>
+        <div class="reader-question-area" id="readerQuestionArea"></div>
+      </div>
+      <div class="reader-nav">
+        <button>ᐊ 上一章</button>
+        <button>下一章 ᐅ</button>
+      </div>
+    </section>
+    <aside class="reader-right">
+      <button class="right-reader-tab purple">▰<span>资源分区</span></button>
+      <button class="right-reader-tab blue">⌕<span>搜索</span></button>
+    </aside>
+  </main>
+
+  <script src="preview.js"></script>
+</body>
+</html>
