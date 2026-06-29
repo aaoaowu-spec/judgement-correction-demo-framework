@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>编写章节 - 判断并改错预览</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="chapter-page">
+  <div class="chapter-shell">
+    <header class="chapter-top">
+      <div>
+        <div class="chapter-logo"><span class="logo-blue">iP</span>ublish数字教材出版平台</div>
+        <div class="breadcrumb">教材管理 <span>›</span> 我的教材 <span>›</span> 软件体验 <span>›</span> <b>编写章节</b></div>
+      </div>
+      <div class="user-area">
+        <span class="help">?</span>
+        <span class="avatar-dot"></span>
+        <span>外研在线</span>
+      </div>
+    </header>
+
+    <div class="chapter-workspace">
+      <aside class="chapter-left">
+        <h1>软件体验</h1>
+        <div class="toc-head">目录 <span>⌘</span></div>
+        <button class="chapter-item">第一章 体验1</button>
+        <button class="chapter-item">第二章 体验2</button>
+        <button class="chapter-item active">第三章 体验3</button>
+      </aside>
+
+      <main class="chapter-center">
+        <div class="editor-topbar">
+          <button class="tool-action" id="backToInput">▣ 保存</button>
+          <span class="divider"></span>
+          <button class="tool-action">↶ 撤销</button>
+          <button class="tool-action">↷ 重做</button>
+          <button class="preview-btn" id="openPreviewPage">◉ 预览</button>
+        </div>
+
+        <div class="canvas">
+          <div class="upload-box">
+            <div class="upload-icon">▧</div>
+            <div>点击上传图片</div>
+          </div>
+
+          <div class="question-preview-card">
+            <div class="preview-card-head">
+              <div>
+                <span class="small-pill">自动判题</span>
+                <span class="small-pill">计分</span>
+              </div>
+              <button class="setting-btn" id="openQuestionSettings">▤ 试题设置</button>
+            </div>
+
+            <div class="preview-body" id="previewBody"></div>
+          </div>
+
+          <div class="chapter-nav">
+            <button>ᐊ 上一章</button>
+            <button>下一章 ᐅ</button>
+          </div>
+        </div>
+      </main>
+
+      <aside class="chapter-right">
+        <button class="right-tab purple">▰ 资源分区</button>
+        <button class="right-tab teal">▦ 样式设置</button>
+        <button class="right-tab orange">▧ 模板设置</button>
+      </aside>
+    </div>
+  </div>
+
+  <div class="settings-mask" id="settingsMask" aria-hidden="true">
+    <div class="settings-modal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+      <header class="settings-head">
+        <h2 id="settingsTitle">设置</h2>
+        <button class="settings-close" id="closeQuestionSettings" aria-label="关闭">×</button>
+      </header>
+      <div class="settings-body">
+        <div class="settings-grid">
+          <section class="settings-section">
+            <h3><span>▱</span> 作答设置</h3>
+            <div class="settings-card">
+              <div class="setting-label">作答显示样式</div>
+              <div class="radio-line">
+                <label><input type="radio" name="answerStyle" value="TF" checked> TF</label>
+                <label><input type="radio" name="answerStyle" value="tick"> ✓×</label>
+                <label><input type="radio" name="answerStyle" value="text"> 对错</label>
+                <label><input type="radio" name="answerStyle" value="check"> 勾选</label>
+              </div>
+              <div class="style-preview" id="answerStylePreview"></div>
+              <div class="setting-label">附加题显示设置</div>
+              <div class="fake-select" data-value="作答后显示附加题">
+                <button type="button"><span>作答后显示附加题</span><i>⌄</i></button>
+                <div class="fake-options">
+                  <button type="button">作答前显示附加题</button>
+                  <button type="button" class="active">作答后显示附加题</button>
+                </div>
+              </div>
+              <div class="fake-select" data-value="作答即显示">
+                <button type="button"><span>作答即显示</span><i>⌄</i></button>
+                <div class="fake-options">
+                  <button type="button" class="active">作答即显示</button>
+                  <button type="button">作答T显示</button>
+                  <button type="button">作答F显示</button>
+                  <button type="button" data-ng-only>作答NG显示</button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="settings-section">
+            <h3><span>▱</span> 判题设置</h3>
+            <div class="settings-card compact">
+              <div class="switch-row">
+                <span>自动判题</span>
+                <label class="switch"><input type="checkbox" checked><i></i></label>
+              </div>
+              <div class="judge-note" data-ng-note>已开启 NG 时，自动判题会按 T / F / NG 标准答案匹配学生选择。</div>
+            </div>
+          </section>
+
+          <section class="settings-section">
+            <h3><span>⏱</span> 计分设置</h3>
+            <div class="settings-card">
+              <div class="switch-row">
+                <span>计分</span>
+                <label class="switch"><input type="checkbox" checked><i></i></label>
+              </div>
+              <div class="setting-label">分数设置</div>
+              <div class="score-row">
+                <span>1小题共</span>
+                <input value="1">
+                <span>分</span>
+              </div>
+              <div class="score-row">
+                <span>小题1</span>
+                <input value="1">
+                <span>分</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="settings-section">
+            <h3><span>▦</span> 展示设置</h3>
+            <div class="settings-card">
+              <div class="score-row wide">
+                <span>电脑端布局</span>
+                <div class="fake-select slim" data-value="瀑布结构">
+                  <button type="button"><span>瀑布结构</span><i>⌄</i></button>
+                  <div class="fake-options">
+                    <button type="button" class="active">瀑布结构</button>
+                    <button type="button">左右分栏</button>
+                    <button type="button">逐题展示</button>
+                  </div>
+                </div>
+              </div>
+              <div class="score-row wide">
+                <span>手机端布局</span>
+                <div class="fake-select slim" data-value="瀑布结构">
+                  <button type="button"><span>瀑布结构</span><i>⌄</i></button>
+                  <div class="fake-options">
+                    <button type="button" class="active">瀑布结构</button>
+                    <button type="button">上下结构</button>
+                    <button type="button">逐题展示</button>
+                  </div>
+                </div>
+              </div>
+              <div class="switch-row quiet">
+                <span>挖空序号显示</span>
+                <label class="switch"><input type="checkbox" checked><i></i></label>
+              </div>
+            </div>
+          </section>
+
+          <section class="settings-section span-2">
+            <h3><span>▣</span> 材料设置</h3>
+            <div class="settings-card material-empty">
+              <div class="empty-gear">⚙</div>
+              <div>暂无设置</div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <footer class="settings-foot">
+        <button class="settings-cancel" id="cancelQuestionSettings">取 消</button>
+        <button class="settings-save" id="saveQuestionSettings">保 存</button>
+      </footer>
+    </div>
+  </div>
+
+  <script src="chapter-editor.js"></script>
+</body>
+</html>
